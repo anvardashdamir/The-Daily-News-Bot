@@ -10,10 +10,8 @@ Most news apps are pull-based: you open the app, browse, hope you didn't miss
 anything. This bot flips that — you tell it what you care about once, and it
 messages you as soon as something matching shows up.
 
-It's also deliberately **multi-sided** on default sources: for conflicts like
-Russia–Ukraine and Israel–Iran, it pulls from outlets on both sides (including
-state-run media, clearly labeled as such) rather than only Western coverage —
-see `/sources` in the bot, or `seedDefaultFeedsIfNeeded` in `configure.swift`.
+It's also deliberately **multi-sided** on default sources. It pulls from outlets on both sides.
+See `/sources` in the bot, or `seedDefaultFeedsIfNeeded` in `configure.swift`.
 The goal is to let you see how each side frames its own story, not to endorse
 any of them.
 
