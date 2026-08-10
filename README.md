@@ -10,10 +10,8 @@ Most news apps are pull-based: you open the app, browse, hope you didn't miss
 anything. This bot flips that — you tell it what you care about once, and it
 messages you as soon as something matching shows up.
 
-It's also deliberately **multi-sided** on default sources: for conflicts like
-Russia–Ukraine and Israel–Iran, it pulls from outlets on both sides (including
-state-run media, clearly labeled as such) rather than only Western coverage —
-see `/sources` in the bot, or `seedDefaultFeedsIfNeeded` in `configure.swift`.
+It's also deliberately **multi-sided** on default sources. See `/sources` in
+the bot, or `seedDefaultFeedsIfNeeded` in `configure.swift`.
 The goal is to let you see how each side frames its own story, not to endorse
 any of them.
 
@@ -103,9 +101,34 @@ On first run, the bot seeds a starter set of RSS feeds (see `configure.swift`)
 and creates `db.sqlite` in the project root automatically.
 
 ### 4. Try it
-Open a chat with your bot on Telegram and send `/start`, then `/add <topic>`.
-Since the fetch loop runs every 5 minutes by default, a matching article
-should arrive within that window.
+Open a chat with your bot on Telegram and send `/start`.
+
+## Using the bot on Telegram
+
+Once it's running, everything happens inside a normal Telegram chat with your
+bot — no separate app or website involved.
+
+1. Open Telegram and search for your bot by the **username** you gave it in
+   BotFather (e.g. `@cnvr_news_bot`), not its display name.
+2. Send `/start` — you'll get a welcome message and you're registered.
+3. Follow a topic with `/add <keyword>`, e.g.:
+   ```
+   /add SpaceX
+   /add Swift
+   /add Ukraine
+   ```
+   Add as many separate keywords as you want — each is tracked independently,
+   and any article matching *any* of them gets sent to you.
+4. Check what you're following anytime with `/list`, or drop one with
+   `/remove <keyword>`.
+5. See exactly which outlets are feeding the bot with `/sources`, or add your
+   own with `/addfeed <rss_url>`.
+6. Sit back — matching articles arrive as a photo + caption (or plain text if
+   no image is available) as soon as the next fetch cycle finds them.
+
+The bot only responds while the program is actively running (`swift run` in a
+terminal, or deployed somewhere always-on — see Roadmap). If your Mac sleeps
+or the terminal is closed, the bot goes quiet until it's started again.
 
 ### Troubleshooting
 - **No messages arriving:** check the bot's console logs — a feed URL may have
@@ -116,7 +139,6 @@ should arrive within that window.
   `FETCH_INTERVAL_SECONDS` or drop NewsAPI categories and rely on RSS only.
 
 ## Roadmap ideas
-- Per-user feed subscriptions (right now feeds are global/shared)
 - Smarter matching (stemming / basic NLP instead of substring match)
 - Digest mode (batched summary instead of one message per article)
 - Deploy guide (Docker + a small VPS or Railway/Render)
